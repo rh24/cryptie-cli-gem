@@ -11,7 +11,7 @@ class Cryptie::Coin
   end
 
   def self.learn(input)
-    coin = self.all[input-1]
+    coin = self.all[input.to_i-1]
     puts "\nYou've entered ##{input}:"
     puts "\nName: #{coin.name}"
     puts "Symbol: #{coin.symbol}"
@@ -20,8 +20,6 @@ class Cryptie::Coin
     puts "Market Cap: #{coin.market_cap}"
     if coin.supply.include?("*")
       coin.supply += " this coin is not mineable"
-    else
-      nil
     end
     # binding.pry
   end
