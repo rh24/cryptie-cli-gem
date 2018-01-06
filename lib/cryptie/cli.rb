@@ -16,54 +16,27 @@ class Cryptie::CLI
     while input != "exit" do
       input = gets.strip
       case input
-      when "1"
-        # coin = Cryptie::Coin.new(Cryptie::Coin.all[1]) # BTC Hash
-        coin.learn(1)
-      when "2"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[2]) # XRP Hash
-        coin.learn(2)
-      when "3"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[3])
-        coin.learn(3)
-      when "4"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[4])
-        coin.learn(4)
-      when "5"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[5])
-        coin.learn(5)
-      when "6"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[6])
-        coin.learn(6)
-      when "7"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[7])
-        coin.learn(7)
-      when "8"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[8])
-        coin.learn(8)
-      when "9"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[9])
-        coin.learn(9)
-      when "10"
-        puts "xrp stats"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[10])
-        coin.learn(10)
+      when input.to_i.is_a?(Integer) # this line is broken
+        learn(input) # entered 1, but nothing is printing. terminal is stuck
       when "exit"
         puts "See you later!"
-      when input == "list" # this won't print in my terminal! it gets stuck :(
-        menu
-      else
-        puts "Not sure what you want. Try again."
-        puts "Please, enter a number 1-30, or \"exit\" to leave:"
+      when input == "list" # this line is broken
+        Cryptie::Coin.list
+      # else
+      #   puts "Not sure what you want. Try again."
+      #   puts "Please, enter a number 1-30, or \"exit\" to leave:"
       end
     end
+  end
+
+  def learn(input)
+    coin = Cryptie::Coin.all[input]
+    puts "You've entered #{input}."
+    puts "Name: #{coin.name}"
+    puts "Symbol: #{coin.symbol}"
+    puts "Price: #{coin.price}"
+    puts "Supply: #{coin.supply}"
+    puts "Market Cap: #{coin.market_cap}"
   end
 
   def goodbye
