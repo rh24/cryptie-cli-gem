@@ -75,6 +75,7 @@ class Cryptie::Scraper
         :name => @name_array[i],
         :symbol => @sym_array[i],
         :price => @price_array[i],
+        :supply => @circulating_suppy_array[i],
         :market_cap => @market_cap_array[i],
         :volume => @day_trading_vol[i],
         :day_percent_change => @day_percent_change[i]

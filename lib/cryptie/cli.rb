@@ -1,3 +1,5 @@
+require 'pry'
+
 class Cryptie::CLI
 
   def call
@@ -15,7 +17,7 @@ class Cryptie::CLI
       input = gets.strip
       case input
       when "1"
-        coin = Cryptie::Coin.new(Cryptie::Coin.all[1]) # BTC Hash
+        # coin = Cryptie::Coin.new(Cryptie::Coin.all[1]) # BTC Hash
         coin.learn(1)
       when "2"
         puts "xrp stats"

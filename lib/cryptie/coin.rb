@@ -2,11 +2,12 @@ require 'pry'
 
 class Cryptie::Coin
   # extend
-  attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :volume, :day_percent_change
+  attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :supply, :volume, :day_percent_change
   @@all = []
 
   def initialize(coin_hash)
     coin_hash.each {|key, value| self.send("#{key}=", value)}
+    # binding.pry
     self.class.all << self
   end
 
@@ -33,9 +34,13 @@ class Cryptie::Coin
   def learn(input)
     input = input.to_i
     index = input-1
-    puts "#{input}. #{name_array[index]} #{sym_array[index]}\n"
-    puts "Price: #{@price_array[index]}\n Market Cap: #{@market_cap_array[index]}\n Circulating Supply: #{circulating_suppy_array[index]}\n 24h Trading Vol: #{day_trading_volume[index]}\n"
-    puts "* Not mineable"
+    puts "#{input}. #{self.all[index].name} #{self.all[index].symbol}\n"
+    puts "Price: #{self.all[index].price}\n Market Cap: #{self.all[index].market_cap}\n Circulating Supply: #{self.all[index].supply}\n 24h Trading Vol: #{self.all[index].volume}\n"
+    puts "Note: * not mineable"
+  end
+
+  def self.find_by_rank(input)
+    all.detect {|coin| coin.rank == input}
   end
 
   def self.all #exposes an array of Coin instances
