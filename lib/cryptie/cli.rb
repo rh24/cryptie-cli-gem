@@ -1,0 +1,4 @@
+class Cryptie::CLI
+  
+
+end
