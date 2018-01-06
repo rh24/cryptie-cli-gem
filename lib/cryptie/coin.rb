@@ -1,6 +1,6 @@
 require 'pry'
 
-class Coin
+class Cryptie::Coin
   # extend
   attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :volume, :day_percent_change
   @@all = []
@@ -8,6 +8,26 @@ class Coin
   def initialize(coin_hash)
     coin_hash.each {|key, value| self.send("#{key}=", value)}
     self.class.all << self
+  end
+
+  def self.list
+    @list =
+    puts "Today's Top 10 Cryptocurrencies by Market Cap:"
+    Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
+      # binding.pry
+      puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"
+      break if index == 10
+    end
+  end
+
+  def self.full_list
+    @full_list =
+    puts "Today's Top 10 Cryptocurrencies by Market Cap:"
+    # puts "#{table_head_array.join("  ")}\n\n" if I want to display all attributes in one full list
+    sym_array.each.with_index(1) do |sym, index|
+      puts "#{index}. #{name_array[index-1]}  #{sym}   \n"
+      break if index == 10
+    end
   end
 
   def learn(input)
@@ -18,100 +38,8 @@ class Coin
     puts "* Not mineable"
   end
 
-  def self.all
+  def self.all #exposes an array of Coin instances
     @@all
   end
 
-  def rank
-    @rank =
-  end
-
-  def symbol
-    @symbol =
-  end
-
-  def name
-    @name =
-  end
-
-  def market_cap
-    @market_cap =
-  end
-
-  def price
-    @price =
-  end
-
-  def volume
-    @volume =
-  end
-
-  def hr_percent_change
-    @hr_percent_change =
-  end
-
-  def day_percent_change
-    @day_percent_change =
-  end
-
-  def week_percent_change
-    @week_percent_change =
-  end
-
-
-# Create a module for finding methods
-  def self.find_by_name_rank_or_symbol(rank=nil, name=nil, symbol=nil)
-    if rank != nil
-      @coin_list.detect(rank)
-  end
-
-  def self.find_by_rank(input)
-
-  end
-
-  def self.find_by_symbol(sym)
-
-  end
-
-  def self.find_by_price_range(price)
-
-  end
-
-# Create a module for class sorting methods
-  def self.sort_by_rank
-
-  end
-
-  def self.sort_by_name
-
-  end
-
-  def self.sort_by_symbol
-
-  end
-
-  def self.sort_by_market_cap
-
-  end
-
-  def self.sort_by_price
-
-  end
-
-  def self.sort_by_volume
-
-  end
-
-  def self.sort_by_hr_percent_change
-
-  end
-
-  def self.sort_by_day_percent_change
-
-  end
-
-  def self.sort_by_week_percent_change
-
-  end
-end
 end
