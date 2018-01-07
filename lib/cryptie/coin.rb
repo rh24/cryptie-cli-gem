@@ -11,7 +11,7 @@ class Cryptie::Coin
   end
 
   def self.learn(input)
-    coin = self.all[input.to_i-1] # This should work as [input.to_i-1], but it doesn't which means that self.all[0] is a coin instance with an empty hash of attributes. Check up on that.
+    coin = self.all[input.to_i-1]
     puts "\nYou've entered ##{input}:"
     puts "\nName: #{coin.name}"
     puts "Symbol: #{coin.symbol}"
