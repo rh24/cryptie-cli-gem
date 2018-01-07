@@ -3,7 +3,7 @@ require 'pry'
 class Cryptie::CLI
 
   def call
-    Cryptie::Scraper.create_coins
+    Cryptie::Scraper.scrape_all_coins
     Cryptie::Coin.list
     menu
     goodbye
