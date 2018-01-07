@@ -11,7 +11,7 @@ class Cryptie::CLI
     goodbye
   end
 
-  def menu
+  def menu # Fix CLI output. currently I have to type exit 2-4 times to exit the program. Not sure why it's doing this.
     puts "Which coin would you like to learn more about? Enter rank \#:"
     input = nil
     while input != "exit"
@@ -23,9 +23,10 @@ class Cryptie::CLI
         menu
       elsif input == "exit"
         puts "See you later!"
-      else
-        puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
-        menu
+        break
+      # else
+      #   puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
+      #   menu
       end
     end
   end
