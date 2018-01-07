@@ -18,8 +18,8 @@ class Cryptie::Scraper
           :day_percent_change => coin.css('td').css('.percent-24h').text.strip
         }
                       # binding.pry
-      @@all << coin_hash
       coin = Cryptie::Coin.new(coin_hash)
+      @@all << coin_hash
     end
   end
 

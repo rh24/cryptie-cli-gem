@@ -4,6 +4,8 @@ class Cryptie::CLI
 
   def call
     Cryptie::Scraper.scrape_all_coins
+    # binding.pry
+
     Cryptie::Coin.list
     menu
     goodbye
@@ -16,13 +18,13 @@ class Cryptie::CLI
       input = gets.strip.downcase # Need to sanitize the input later
       if input == "list"
         Cryptie::Coin.list
-      elsif input == "exit"
-        puts "See you later!"
       elsif input.to_i.is_a?(Integer) && input.to_i != 0
         Cryptie::Coin.learn(input)
+        menu
+      elsif input == "exit"
+        puts "See you later!"
       else
-        puts "Not sure what you want. Try again."
-        puts "Please, enter a number 1-30, or \"exit\" to leave:"
+        puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
         menu
       end
     end
