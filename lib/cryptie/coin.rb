@@ -1,7 +1,6 @@
 require 'pry'
 
 class Cryptie::Coin
-  # extend
   attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :supply, :volume, :day_percent_change
   @@all = []
 
@@ -19,7 +18,7 @@ class Cryptie::Coin
     end
   end
 
-  def self.learn(input)
+  def self.find_by_rank(input)
     coin = self.all[input.to_i-1]
     puts "\nYou've entered ##{input}:"
     puts "\nName: #{coin.name}"
