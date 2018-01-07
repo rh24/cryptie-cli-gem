@@ -18,9 +18,7 @@ class Cryptie::Coin
     puts "Price: #{coin.price}"
     puts "Supply: #{coin.supply}"
     puts "Market Cap: #{coin.market_cap}"
-    if coin.supply.include?("*")
-      coin.supply += " this coin is not mineable"
-    end
+    coin.supply += " this coin is not mineable" if coin.supply.include?("*")
     # binding.pry
   end
 
