@@ -21,6 +21,7 @@ class Cryptie::Scraper
       @@all << coin_hash
       coin = Cryptie::Coin.new(coin_hash)
     end
+  end
 
     def self.all
       @@all
