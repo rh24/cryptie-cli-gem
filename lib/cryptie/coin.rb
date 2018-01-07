@@ -10,6 +10,15 @@ class Cryptie::Coin
     self.class.all << self
   end
 
+  def supply=(supply)
+    if supply.include?("*")
+      supply += " this coin is not mineable"
+      @supply = supply
+    else
+      @supply = supply
+    end
+  end
+
   def self.learn(input)
     coin = self.all[input.to_i-1]
     puts "\nYou've entered ##{input}:"
@@ -18,7 +27,6 @@ class Cryptie::Coin
     puts "Price: #{coin.price}"
     puts "Supply: #{coin.supply}"
     puts "Market Cap: #{coin.market_cap}"
-    coin.supply += " this coin is not mineable" if coin.supply.include?("*")
   end
 
   def self.list

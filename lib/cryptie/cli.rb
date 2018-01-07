@@ -4,6 +4,7 @@ class Cryptie::CLI
 
   def call
     Cryptie::Scraper.scrape_all_coins
+    Cryptie::Coin.learn(2)
     # binding.pry
 
     Cryptie::Coin.list
@@ -11,7 +12,7 @@ class Cryptie::CLI
     goodbye
   end
 
-  def menu # Fix CLI output. currently I have to type exit 2-4 times to exit the program. Not sure why it's doing this.
+  def menu # Fix CLI output. currently I have to type exit 2-4 times to exit the program. Not sure why it's doing this. I figured out I have to type exit for every input I enter.
     puts "Which coin would you like to learn more about? Enter rank \#:"
     input = nil
     while input != "exit"
