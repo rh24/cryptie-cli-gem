@@ -6,20 +6,24 @@ class Cryptie::Scraper
   def self.scrape_all_coins
     doc = Nokogiri::HTML(open('https://coinmarketcap.com/all/views/all/'))
 
-    doc.css('.js-summary-table').css('td').each do |coin|
-      coin_hash = {
-        :rank => coin.css('.text-center').text.strip,
-        :name => coin.css('.currency-name').css('.currency-name-container').text.strip,
-        :symbol => coin.css('.currency-name').css('span a').text.strip,
-        :price => coin.css('.price').text.strip,
-        :supply => coin.css('.circulating-supply').text.gsub(/\s+/, "").gsub("*", " *"),
-        :market_cap => coin.css('.market-cap').text.strip,
-        :volume => coin.css('.volume').text.strip,
-        :day_percent_change => coin.css('.percent-24h').text.strip
-      }
-
+    doc.css('table').css('tr').each do |coin|
+        coin_hash = {
+          :rank => coin.css('.text-center').text.strip,
+          :name => coin.css('.currency-name').css('.currency-name-container').text.strip,
+          :symbol => coin.css('.currency-name').css('span a').text.strip,
+          :price => coin.css('td').css('.price').text.strip,
+          :supply => coin.css('td').css('.circulating-supply').text.gsub(/\s+/, "").gsub("*", " *"),
+          :market_cap => coin.css('td').css('.market-cap').text.strip,
+          :volume => coin.css('td').css('.volume').text.strip,
+          :day_percent_change => coin.css('td').css('.percent-24h').text.strip
+        }
+                      # binding.pry
+      @@all << coin_hash
       coin = Cryptie::Coin.new(coin_hash)
-      binding.pry
+    end
+
+    def self.all
+      @@all
     end
   end
   # binding.pry
