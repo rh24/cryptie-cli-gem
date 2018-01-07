@@ -23,10 +23,10 @@ class Cryptie::Scraper
     end
   end
 
-    def self.all
-      @@all
-    end
+  def self.all
+    @@all
   end
+end
   # binding.pry
 
   # Below variables return arrays of strings. If I want to operate on them, I need to turn them into integers.
@@ -108,5 +108,3 @@ class Cryptie::Scraper
 #     end
 #           # binding.pry
 #   end
-#
-end
