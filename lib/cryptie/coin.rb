@@ -18,10 +18,8 @@ class Cryptie::Coin
     end
   end
 
-  def self.find_by_rank(input)
-    # input = gets.strip.to_i
-    coin = self.all[input-1]
-    binding.pry
+  def self.learn_more(input)
+    coin = all[input.to_i-1]
     puts "\nYou've entered ##{input}:"
     puts "\nName: #{coin.name}"
     puts "Symbol: #{coin.symbol}"
@@ -45,13 +43,13 @@ class Cryptie::Coin
     # puts "#{table_head_array.join("  ")}\n\n" if I want to display all attributes in one full list
     Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
       puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"
-      break if index == 10
+      break if index == 10 # Change index to display more than Top 10
     end
   end
 
-  def self.find_by_rank(input)
-    all.detect {|coin| coin.rank == input}
-  end
+  # def self.find_by_rank(input)
+  #   all.detect {|coin| coin.rank == input}
+  # end
 
   def self.all #exposes an array of Coin instances
     @@all

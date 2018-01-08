@@ -4,6 +4,7 @@ class Cryptie::CLI
 
   def call
     Cryptie::Scraper.scrape_all_coins
+    # binding.pry
     Cryptie::Coin.list
     menu
     # goodbye
@@ -14,8 +15,8 @@ class Cryptie::CLI
     input = nil
     while input != "exit"
       input = gets.strip.downcase # Need to sanitize the input later
-      if input.to_i.is_a?(Integer) && input.to_i != 0
-        Cryptie::Coin.find_by_rank(input)
+      if input.to_i != 0
+        Cryptie::Coin.learn_more(input)
       elsif input == "list"
         Cryptie::Coin.list
         # binding.pry
