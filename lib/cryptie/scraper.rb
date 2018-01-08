@@ -18,8 +18,8 @@ class Cryptie::Scraper
           :day_percent_change => coin.css('td').css('.percent-24h').text.strip
         }
 
-      coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank].to_i == 0
-      @@all << coin_hash
+      coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank].to_i == "#"
+      @@all << coin_hash unless coin_hash[:rank].to_i == "#"
     end
   end
 
