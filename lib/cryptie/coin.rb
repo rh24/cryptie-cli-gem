@@ -41,10 +41,10 @@ class Cryptie::Coin
     end
   end
 
-  def self.find_by_rank
-
-    all.detect {|coin| coin.rank == input}
-  end
+  # def self.find_by_rank
+  #
+  #   all.detect {|coin| coin.rank == input}
+  # end
 
   def self.all #exposes an array of Coin instances
     @@all
