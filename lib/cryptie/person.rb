@@ -1,16 +1,12 @@
 class Cryptie::Person
-  attr_reader :name, :spending_balance, :coins
+  attr_reader :name, :spending_balance, :coins, :orders
   @@all = []
-  @orders = []
 
   def initialize(name, spending_balance)
     @name = name
     @spending_balance = spending_balance
     self.class.all << self
-  end
-
-  def orders
-    @orders
+    @orders = []
   end
 
   def self.all
