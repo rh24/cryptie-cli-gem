@@ -21,7 +21,8 @@ class Cryptie::CLI
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
         person = Cryptie::Person.new(person_name, balance)
-        person.order = Cryptie::Order.new(coin, quantity)
+        order = Cryptie::Order.new(valid_symbol, valid_spend)
+        person.orders << order
         # binding.pry
       elsif input == "exit"
         goodbye
@@ -30,6 +31,28 @@ class Cryptie::CLI
         puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
         menu
       end
+    end
+  end
+
+  def valid_symbol
+    puts "Which coin would you like to purchase? Enter symbol:"
+    input = gets.strip.upcase
+    if Cryptie::Coin.all.detect {|c| c.symbol == input} == nil
+      puts "Invalid symbol. We could not find this coin. Please, try again."
+      valid_symbol
+    else
+      input
+    end
+  end
+
+  def valid_spend
+    puts "Here is your account balance: $#{person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+    spend = gets.strip.to_i
+    if spend > 0 && spend <= person.spending_balance
+      spend
+    else
+      puts "Invalid amount. Try again."
+      valid_spend
     end
   end
 
