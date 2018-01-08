@@ -15,7 +15,9 @@ class Cryptie::Scraper
           :supply => coin.css('td').css('.circulating-supply').text.gsub(/\s+/, "").gsub("*", " *"),
           :market_cap => coin.css('td').css('.market-cap').text.strip,
           :volume => coin.css('td').css('.volume').text.strip,
-          :day_percent_change => coin.css('td').css('.percent-24h').text.strip
+          :hr_percent_change => coin.css('td').css('.percent-1h').text.strip,
+          :day_percent_change => coin.css('td').css('.percent-24h').text.strip,
+          :week_percent_change => coin.css('td').css('.percent-7d').text.strip
         }
 
       coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank] == "#"

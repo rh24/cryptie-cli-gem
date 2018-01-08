@@ -1,7 +1,7 @@
 require 'pry'
 
 class Cryptie::Coin
-  attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :supply, :volume, :day_percent_change
+  attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :supply, :volume, :hr_percent_change, :day_percent_change, :week_percent_change
   @@all = []
 
   def initialize(coin_hash)
@@ -26,6 +26,9 @@ class Cryptie::Coin
     puts "Price: #{coin.price}"
     puts "Circulating Supply: #{coin.supply}"
     puts "Market Cap: #{coin.market_cap}"
+    puts "1h Change: #{coin.hr_percent_change}"
+    puts "24h Change: #{coin.day_percent_change}"
+    puts "7d Change: #{coin.week_percent_change}"
   end
 
   def self.list
