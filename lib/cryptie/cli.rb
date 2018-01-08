@@ -20,10 +20,15 @@ class Cryptie::CLI
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        person = Cryptie::Person.new(person_name, balance)
+        @person = Cryptie::Person.new(person_name, balance)
         order = Cryptie::Order.new(valid_symbol, valid_spend)
-        person.orders << order
-        # binding.pry
+        order.person = @person
+        @person.orders << order
+        # update balance
+        # display account:
+          # person.name has
+            # coin, quantity, remaining balance
+        binding.pry
       elsif input == "exit"
         goodbye
         exit
@@ -46,10 +51,12 @@ class Cryptie::CLI
   end
 
   def valid_spend
-    puts "Here is your account balance: $#{person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+    puts "Here is your account balance: $#{@person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
     spend = gets.strip.to_i
-    if spend > 0 && spend <= person.spending_balance
+    if spend > 0 && spend <= @person.spending_balance
       spend
+    elsif spend == "max"
+      # calculate max possible purchase
     else
       puts "Invalid amount. Try again."
       valid_spend
