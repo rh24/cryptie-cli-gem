@@ -31,22 +31,12 @@ class Cryptie::Coin
     puts "7d Change: #{coin.week_percent_change}"
   end
 
-  def self.list
+  def self.list # All coins have been scraped. Change index to display more coins.
     @list =
     puts "Today's Top 10 Cryptocurrencies by Market Cap:"
     Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
       puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"
       break if index == 10
-    end
-  end
-
-  def self.full_list # Not sure if I want to include this method at all. CLI gets messy
-    @full_list =
-    puts "Today's Top 10 Cryptocurrencies by Market Cap:"
-    # puts "#{table_head_array.join("  ")}\n\n" if I want to display all attributes in one full list
-    Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
-      puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"
-      break if index == 10 # Change index to display more than Top 10
     end
   end
 
