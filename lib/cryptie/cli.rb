@@ -20,10 +20,7 @@ class Cryptie::CLI
         Cryptie::Coin.list
         order
       elsif input == "order"
-        person = Cryptie::Person.new()
-        person.name = person_name
-        person.spending_balance = balance
-        # binding.pry
+        person = Cryptie::Person.new(person_name, balance)
       elsif input == "exit"
         goodbye
         exit
