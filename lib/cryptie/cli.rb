@@ -1,7 +1,6 @@
 require 'pry'
 
 class Cryptie::CLI
-  attr_reader :person_name
 
   def call
     Cryptie::Scraper.scrape_all_coins
@@ -10,18 +9,23 @@ class Cryptie::CLI
   end
 
   def menu
-    puts "Which coin would you like to learn more about? Enter rank \#:"
+    puts "  \nWhich coin would you like to learn more about?\n  Enter rank \# or \"list\" to see all coins:"
     input = nil
     while input != "exit"
       input = gets.strip.downcase # Need to sanitize the input later
       if input.to_i != 0
         Cryptie::Coin.learn_more(input)
+        order
       elsif input == "list"
         Cryptie::Coin.list
+        order
       elsif input == "order"
-        person_name
+        name
+        # spending_balance
+        # binding.pry
+        # person = Cryptie::Person(name, spending_balance)
       elsif input == "exit"
-        puts "See you later!"
+        goodbye
         exit
       else
         puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
@@ -30,33 +34,45 @@ class Cryptie::CLI
     end
   end
 
-  def person_name
+  def order
+    puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
+  end
+
+  def name
     puts "Please, enter your name:"
-    name = gets.strip
-    if name.to_i != 0
-      puts "Need valid input. Try again."
-      person_name
+    input = gets.strip
+    if input.to_i.is_a?(Integer) && input.to_i != 0
+      puts "Need valid name. Try again, \"exit\" or \"menu\" for more options."
+      name
+    elsif input == "menu"
+      menu
+    elsif input == "exit"
+      goodbye
+      exit
     else
-      @person_name = name
+      @name = input
     end
   end
 
-  # def spending_balance
-  #   puts "Please, enter your spending balance:"
-  #   account_balance = gets.strip.to_i
-  #   if account_balance.to_i == 0
-  #     puts "You have no money to spend. Please, enter valid balance, or type \"menu\" for more options:"
-  #     account_balance = gets.strip.to_i
-  #     else
-  #       Cryptie::Person(name, account_balance)
-  #     Cryptie::Person(name)
-  #     puts "Which coin would you like to purchase?"
-  #   end
-  # end
+  def spending_balance
+    puts "Please, enter your spending balance:"
+    input = gets.strip.to_i
+    if input.to_i == 0
+      puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
+      spending_balance
+    elsif input == "menu"
+      menu
+    elsif input == "exit"
+      goodbye
+      exit
+    else
+      @spending_balance = input
+    end
+  end
 
 
   def goodbye
-    puts "Check back again soon! Crypto moves quickly."
+    puts "See you later! Check back again soon. Crypto moves quickly."
   end
 
 end
