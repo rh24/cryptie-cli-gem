@@ -20,14 +20,10 @@ class Cryptie::CLI
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        @person = Cryptie::Person.new(person_name, balance)
-        order = Cryptie::Order.new(valid_symbol, valid_spend)
-        order.person = @person
-        @person.orders << order
-        # update balance
-        # display account:
-          # person.name has
-            # coin, quantity, remaining balance
+        # order
+        #OR
+        person = Cryptie::Person.new(person_name, balance)
+        person.order
         binding.pry
       elsif input == "exit"
         goodbye
@@ -39,29 +35,44 @@ class Cryptie::CLI
     end
   end
 
-  def valid_symbol
-    puts "Which coin would you like to purchase? Enter symbol:"
-    input = gets.strip.upcase
-    if Cryptie::Coin.all.detect {|c| c.symbol == input} == nil
-      puts "Invalid symbol. We could not find this coin. Please, try again."
-      valid_symbol
-    else
-      input
-    end
-  end
-
-  def valid_spend
-    puts "Here is your account balance: $#{@person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
-    spend = gets.strip.to_i
-    if spend > 0 && spend <= @person.spending_balance
-      spend
-    elsif spend == "max"
-      # calculate max possible purchase
-    else
-      puts "Invalid amount. Try again."
-      valid_spend
-    end
-  end
+  # def order
+  #   order = Cryptie::Order.new(valid_symbol, valid_spend)
+  #   order.person = @person
+  #   @person.orders << order
+  #
+  #   # display account:
+  #     # person.name has
+  #       # coin, quantity, remaining balance
+  # end
+  #
+  # def display_account # Should go in Cryptie::Person class?
+  #
+  # end
+  #
+  # def valid_symbol # Should go in Cryptie::Coin class?
+  #   puts "Which coin would you like to purchase? Enter symbol:"
+  #   input = gets.strip.upcase
+  #   if Cryptie::Coin.all.detect {|c| c.symbol == input} == nil
+  #     puts "Invalid symbol. We could not find this coin. Please, try again."
+  #     valid_symbol
+  #   else
+  #     input
+  #   end
+  # end
+  #
+  # def valid_spend # Should go in Cryptie::Person class?
+  #   puts "Here is your account balance: $#{@person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+  #   spend = gets.strip.to_i
+  #   if spend > 0 && spend <= @person.spending_balance
+  #     @person.spending_balance -= spend
+  #     spend
+  #   elsif spend == "max"
+  #     # calculate max possible purchase
+  #   else
+  #     puts "Invalid amount. Try again."
+  #     valid_spend
+  #   end
+  # end
 
   def person_name
     puts "Please, enter your name:"
