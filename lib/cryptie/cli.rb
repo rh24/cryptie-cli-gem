@@ -15,12 +15,14 @@ class Cryptie::CLI
       input = gets.strip.downcase # Need to sanitize the input later
       if input.to_i != 0
         Cryptie::Coin.learn_more(input)
-        order
+        puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "list"
         Cryptie::Coin.list
-        order
+        puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
         person = Cryptie::Person.new(person_name, balance)
+        person.order = Cryptie::Order.new(coin, quantity)
+        # binding.pry
       elsif input == "exit"
         goodbye
         exit
@@ -29,10 +31,6 @@ class Cryptie::CLI
         menu
       end
     end
-  end
-
-  def order
-    puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
   end
 
   def person_name
