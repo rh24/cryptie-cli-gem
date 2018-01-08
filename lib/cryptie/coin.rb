@@ -19,7 +19,9 @@ class Cryptie::Coin
   end
 
   def self.find_by_rank(input)
-    coin = self.all[input.to_i-1]
+    # input = gets.strip.to_i
+    coin = self.all[input-1]
+    binding.pry
     puts "\nYou've entered ##{input}:"
     puts "\nName: #{coin.name}"
     puts "Symbol: #{coin.symbol}"
