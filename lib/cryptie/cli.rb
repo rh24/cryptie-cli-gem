@@ -4,10 +4,8 @@ class Cryptie::CLI
 
   def call
     Cryptie::Scraper.scrape_all_coins
-    # binding.pry
     Cryptie::Coin.list
     menu
-    # goodbye
   end
 
   def menu
@@ -19,7 +17,6 @@ class Cryptie::CLI
         Cryptie::Coin.learn_more(input)
       elsif input == "list"
         Cryptie::Coin.list
-        # binding.pry
       elsif input == "exit"
         puts "See you later!"
         exit
