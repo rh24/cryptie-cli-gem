@@ -18,13 +18,12 @@ class Cryptie::CLI
         Cryptie::Coin.list
       elsif input.to_i.is_a?(Integer) && input.to_i != 0
         Cryptie::Coin.find_by_rank(input)
-        menu
       elsif input == "exit"
         puts "See you later!"
         break
-      # else
-      #   puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
-      #   menu
+      else
+        puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
+        menu
       end
     end
   end

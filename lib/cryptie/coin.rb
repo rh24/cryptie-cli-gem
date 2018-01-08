@@ -24,7 +24,7 @@ class Cryptie::Coin
     puts "\nName: #{coin.name}"
     puts "Symbol: #{coin.symbol}"
     puts "Price: #{coin.price}"
-    puts "Supply: #{coin.supply}"
+    puts "Circulating Supply: #{coin.supply}"
     puts "Market Cap: #{coin.market_cap}"
   end
 
