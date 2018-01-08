@@ -1,5 +1,5 @@
 class Cryptie::Person
-  attr_reader :name, :spending_balance, :order, :coins
+  attr_reader :name, :spending_balance, :coins
   @@all = []
   @orders = []
 
