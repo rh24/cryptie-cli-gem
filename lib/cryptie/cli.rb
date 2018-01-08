@@ -20,10 +20,10 @@ class Cryptie::CLI
         Cryptie::Coin.list
         order
       elsif input == "order"
-        name
-        # spending_balance
+        person = Cryptie::Person.new()
+        person.name = person_name
+        person.spending_balance = balance
         # binding.pry
-        # person = Cryptie::Person(name, spending_balance)
       elsif input == "exit"
         goodbye
         exit
@@ -38,7 +38,7 @@ class Cryptie::CLI
     puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
   end
 
-  def name
+  def person_name
     puts "Please, enter your name:"
     input = gets.strip
     if input.to_i.is_a?(Integer) && input.to_i != 0
@@ -50,14 +50,14 @@ class Cryptie::CLI
       goodbye
       exit
     else
-      @name = input
+      input
     end
   end
 
-  def spending_balance
+  def balance
     puts "Please, enter your spending balance:"
     input = gets.strip.to_i
-    if input.to_i == 0
+    if input.to_i <= 0
       puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
       spending_balance
     elsif input == "menu"
@@ -66,10 +66,9 @@ class Cryptie::CLI
       goodbye
       exit
     else
-      @spending_balance = input
+      input
     end
   end
-
 
   def goodbye
     puts "See you later! Check back again soon. Crypto moves quickly."
