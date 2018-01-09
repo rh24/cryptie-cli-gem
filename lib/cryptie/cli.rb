@@ -18,13 +18,13 @@ class Cryptie::CLI
         print_info(coin)
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "list"
+        # If I switch to list, person is not saved
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
+        # person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
         person.order
         person.display_account
-        # person.spending_balance -= person.valid_spend
         puts "--- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.---"
         puts "------- NOTE: If you already know your token symbol, simply type it into your order. --------"
         puts "------- The CLI only displays the Top 20 coins, but all token info has been scraped. --------"
@@ -42,6 +42,7 @@ class Cryptie::CLI
           person.order
           person.display_account
           puts "--Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.--"
+          puts "----------- Once you enter \"list\" or \"exit\" your information will not be saved -------------"
         end
       elsif input.downcase == "exit"
         goodbye
