@@ -6,41 +6,50 @@ class Cryptie::Person
     @name = name
     @spending_balance = spending_balance
     @orders = []
+    # @coins = []
     # binding.pry
   end
 
-  def coins
-    @coins = self.orders.each {|o| puts "#{o.coin}"}
+  def coins # A person has many coins through orders
+    @coins = self.orders.each do |o|
+      puts "#{o.coin_name}: #{o.quantity}"
+      # How would I account for multiple orders of the same coin?
+    # binding.pry
+    end
   end
 
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
     order.person = self
-    self.orders << order
-
-    # display account:
-      # person.name has
-        # coin, quantity, remaining balance
+    self.orders.each do |o|
+      if o.coin_name == order.coin_name
+        o.quantity += order.quantity
+      else
+        self.orders << order
+      end
+    end
   end
 
   def display_account # Should go in Cryptie::Person class?
-
+    puts "\n#{self.name.capitalize}'s updated account information:"
+    puts "\n#{self.coins}"
+        # coin, quantity, remaining balance
   end
 
   def valid_symbol # Should go in Cryptie::Coin class?
     puts "Which coin would you like to purchase? Enter symbol:"
     input = gets.strip.upcase
-    if Cryptie::Coin.all.detect {|c| c.symbol == input} == nil
+    if Cryptie::Coin.all.detect {|c| c if c.symbol == input} == nil
       puts "Invalid symbol. We could not find this coin. Please, try again."
       valid_symbol
     else
-      input
+      Cryptie::Coin.all.detect {|c| c if c.symbol == input} # Returns coin instance
     end
   end
 
-  def valid_spend # Should go in Cryptie::Person class?
-    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
-    spend = gets.strip.to_i
+  def valid_spend # self.spending_balance works, but not without 'self'. Do I always need self there?
+    puts "Here is your account balance: $#{spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+    spend = gets.strip.to_i # sanitize by accounting for possible "$"
     if spend > 0 && spend <= spending_balance
       self.spending_balance -= spend
       spend

@@ -14,17 +14,16 @@ class Cryptie::CLI
     while input != "exit"
       input = gets.strip.downcase # Need to sanitize the input later
       if input.to_i != 0
-        Cryptie::Coin.learn_more(input)
+        coin = Cryptie::Coin.find_by_rank(input)
+        print_info(coin)
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "list"
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        # order
-        #OR
         person = Cryptie::Person.new(person_name, balance)
         person.order
-        binding.pry
+        person.display_account
       elsif input == "exit"
         goodbye
         exit
@@ -35,44 +34,17 @@ class Cryptie::CLI
     end
   end
 
-  # def order
-  #   order = Cryptie::Order.new(valid_symbol, valid_spend)
-  #   order.person = @person
-  #   @person.orders << order
-  #
-  #   # display account:
-  #     # person.name has
-  #       # coin, quantity, remaining balance
-  # end
-  #
-  # def display_account # Should go in Cryptie::Person class?
-  #
-  # end
-  #
-  # def valid_symbol # Should go in Cryptie::Coin class?
-  #   puts "Which coin would you like to purchase? Enter symbol:"
-  #   input = gets.strip.upcase
-  #   if Cryptie::Coin.all.detect {|c| c.symbol == input} == nil
-  #     puts "Invalid symbol. We could not find this coin. Please, try again."
-  #     valid_symbol
-  #   else
-  #     input
-  #   end
-  # end
-  #
-  # def valid_spend # Should go in Cryptie::Person class?
-  #   puts "Here is your account balance: $#{@person.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
-  #   spend = gets.strip.to_i
-  #   if spend > 0 && spend <= @person.spending_balance
-  #     @person.spending_balance -= spend
-  #     spend
-  #   elsif spend == "max"
-  #     # calculate max possible purchase
-  #   else
-  #     puts "Invalid amount. Try again."
-  #     valid_spend
-  #   end
-  # end
+  def print_info(coin)
+    puts "\nYou've entered ##{coin.rank}:"
+    puts "\nName: #{coin.name}"
+    puts "Symbol: #{coin.symbol}"
+    puts "Price: #{coin.price}"
+    puts "Circulating Supply: #{coin.supply}"
+    puts "Market Cap: #{coin.market_cap}"
+    puts "1h Change: #{coin.hr_percent_change}"
+    puts "24h Change: #{coin.day_percent_change}"
+    puts "7d Change: #{coin.week_percent_change}"
+  end
 
   def person_name
     puts "Please, enter your name:"
