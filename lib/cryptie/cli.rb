@@ -9,7 +9,7 @@ class Cryptie::CLI
   end
 
   def menu
-    puts "  \nWhich coin would you like to learn more about?\n  Enter rank \# or \"list\" to see all coins:"
+    puts "  \nWhich coin would you like to learn more about?\n  Enter rank \#, \"list\" to see all coins, or \"exit\":"
     input = nil
     while input != "exit"
       input = gets.strip.downcase # Need to sanitize the input later
@@ -24,20 +24,32 @@ class Cryptie::CLI
         person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
         person.order
         person.display_account
+        # person.spending_balance -= person.valid_spend
         puts "--- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.---"
         puts "------- NOTE: If you already know your token symbol, simply type it into your order. --------"
         puts "------- The CLI only displays the Top 20 coins, but all token info has been scraped. --------"
         puts "------------------------- Check to see if we have your coin! --------------------------------"
-      elsif input == "buy more"
-        person.order
-        person.display_account
-        puts "--Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.--"
-      elsif input == "exit"
+      elsif input.downcase == "buy more"
+        if person.spending_balance == 0
+          puts "You're out of money! Would you like to continue purchasing?"
+          answer = gets.strip
+          if answer.downcase == "yes"
+            balance
+          else
+            menu
+          end
+        else
+          person.order
+          person.display_account
+          puts "--Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.--"
+        end
+      elsif input.downcase == "exit"
         goodbye
         exit
+      elsif input.downcase == "menu"
+        menu
       else
         puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
-        menu
       end
     end
   end
@@ -57,14 +69,14 @@ class Cryptie::CLI
   def person_name
     puts "Please, enter your name:"
     input = gets.strip
-    if input.to_i.is_a?(Integer) && input.to_i != 0
-      puts "Need valid name. Try again, \"exit\" or \"menu\" for more options."
-      person_name
-    elsif input == "menu"
-      menu
-    elsif input == "exit"
+    if input == "exit"
       goodbye
       exit
+    elsif input == "menu"
+      menu
+    elsif input.to_i.is_a?(Integer) && input.to_i != 0
+      puts "Need valid name. Try again, \"exit\" or \"menu\" for more options."
+      person_name
     else
       input
     end

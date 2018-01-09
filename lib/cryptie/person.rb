@@ -21,6 +21,12 @@ class Cryptie::Person
 
   def order # Work this out
     order = Cryptie::Order.new(valid_symbol, valid_spend)
+    # if !valid_spend
+    #   puts "Want to add more money? Enter new amount."
+    #   Cryptie::CLI.balance
+    # else
+    #   order
+    # end
     order.person = self
     self.orders << order
   end
@@ -29,6 +35,7 @@ class Cryptie::Person
     puts "\n#{self.name.capitalize}'s updated account information:"
     puts "\n"
     puts "#{self.coins}"
+    puts "Your account balance is #{spending_balance}."
         # coin, quantity, remaining balance
   end
 
@@ -48,7 +55,7 @@ class Cryptie::Person
     input = gets.strip
     input = input.delete("$") if input.include?("$")
     if input.to_i > 0 && input.to_i <= self.spending_balance
-      self.spending_balance -= input.to_i
+      # self.spending_balance -= input.to_i
       input.to_i
     elsif input.downcase == "max"
       self.spending_balance
