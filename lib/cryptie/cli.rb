@@ -21,11 +21,17 @@ class Cryptie::CLI
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        order
-        puts "-----Enter \"order\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.-----"
+        person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
+        person.order
+        person.display_account
+        puts "--- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.---"
         puts "------- NOTE: If you already know your token symbol, simply type it into your order. --------"
         puts "------- The CLI only displays the Top 20 coins, but all token info has been scraped. --------"
         puts "------------------------- Check to see if we have your coin! --------------------------------"
+      elsif input == "buy more"
+        person.order
+        person.display_account
+        puts "--Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.--"
       elsif input == "exit"
         goodbye
         exit
@@ -34,12 +40,6 @@ class Cryptie::CLI
         menu
       end
     end
-  end
-
-  def order
-    person = Cryptie::Person.new(person_name, balance)
-    person.order
-    person.display_account
   end
 
   def print_info(coin)
@@ -74,14 +74,14 @@ class Cryptie::CLI
     puts "Please, enter your spending balance:"
     input = gets.strip
     input = input.delete("$") if input.include?("$")
-    if input.to_i <= 0
-      puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
-      balance
-    elsif input.downcase == "menu"
-      menu
-    elsif input.downcase == "exit"
+    if input == "exit"
       goodbye
       exit
+    elsif input.downcase == "menu"
+      menu
+    elsif input.to_i <= 0
+      puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
+      balance
     else
       input.to_i
     end

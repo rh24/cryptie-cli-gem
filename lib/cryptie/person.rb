@@ -1,6 +1,7 @@
 class Cryptie::Person
   attr_accessor :orders, :spending_balance, :account
   attr_reader :name, :coins
+  # @@all = [] Only if I were keeping track of more than one person's account
 
   def initialize(name, spending_balance)
     @name = name
@@ -11,28 +12,23 @@ class Cryptie::Person
   end
 
   def coins # A person has many coins through orders
-    @coins = self.orders.each do |o|
-      puts "#{o.coin_name}: #{o.quantity}"
+    @coins = self.orders.each do |o| # Returns self.orders array in terminal. Fix this.
+      puts "#{o.coin_name} (#{o.coin_sym}):  #{o.quantity}"
       # How would I account for multiple orders of the same coin?
     end
+    return nil
   end
 
-  def order
+  def order # Work this out
     order = Cryptie::Order.new(valid_symbol, valid_spend)
-          # binding.pry
     order.person = self
-    # self.orders.each do |o|
-    #   if o.coin_name == order.coin_name
-    #     o.quantity += order.quantity
-    #   else
-    #     self.orders << order
-    #   end
-    # end
+    self.orders << order
   end
 
   def display_account # Should go in Cryptie::Person class?
     puts "\n#{self.name.capitalize}'s updated account information:"
-    puts "\n#{self.coins}"
+    puts "\n"
+    puts "#{self.coins}"
         # coin, quantity, remaining balance
   end
 
@@ -61,6 +57,10 @@ class Cryptie::Person
       valid_spend
     end
   end
+
+  # def self.find_by_name(name) #Only if I were keeping track of more than one person's account
+  #
+  # end
 
   def self.all
     @@all

@@ -1,9 +1,10 @@
 class Cryptie::Order
   attr_accessor :person
-  attr_reader :coin_name, :coin_price, :quantity
+  attr_reader :coin_name, :coin_sym, :coin_price, :quantity
 
-  def initialize(coin, spend) # Check if the person has enough spending_balance before order is instantiated
-    @coin_name = coin.name
+  def initialize(coin, spend)
+    @coin_name = coin.name # Too long for CLI
+    @coin_sym = coin.symbol
     @coin_price = coin.price.delete("$").to_f
     @quantity = (spend / coin_price)
   end
