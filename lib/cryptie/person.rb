@@ -14,20 +14,20 @@ class Cryptie::Person
     @coins = self.orders.each do |o|
       puts "#{o.coin_name}: #{o.quantity}"
       # How would I account for multiple orders of the same coin?
-    # binding.pry
     end
   end
 
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
+          # binding.pry
     order.person = self
-    self.orders.each do |o|
-      if o.coin_name == order.coin_name
-        o.quantity += order.quantity
-      else
-        self.orders << order
-      end
-    end
+    # self.orders.each do |o|
+    #   if o.coin_name == order.coin_name
+    #     o.quantity += order.quantity
+    #   else
+    #     self.orders << order
+    #   end
+    # end
   end
 
   def display_account # Should go in Cryptie::Person class?
@@ -47,16 +47,15 @@ class Cryptie::Person
     end
   end
 
-  def valid_spend # self.spending_balance works, but not without 'self'. Do I always need self there?
-    puts "Here is your account balance: $#{spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
-    spend = gets.strip.downcase
-    spend = spend.delete("$").to_i if spend.include?("$")
-    if spend.to_i > 0 && spend.to_i <= spending_balance
-      self.spending_balance -= spend.to_i
-      spend
-      # binding.pry
-    elsif spend == "max"
-      spend = self.spending_balance
+  def valid_spend
+    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+    input = gets.strip
+    input = input.delete("$") if input.include?("$")
+    if input.to_i > 0 && input.to_i <= self.spending_balance
+      # self.spending_balance -= input.to_i
+      input.to_i
+    elsif input.downcase == "max"
+      self.spending_balance
     else
       puts "Invalid amount. Try again."
       valid_spend

@@ -72,18 +72,18 @@ class Cryptie::CLI
 
   def balance
     puts "Please, enter your spending balance:"
-    input = gets.strip.downcase
-    input = input.delete("$").to_i if input.include?("$")
+    input = gets.strip
+    input = input.delete("$") if input.include?("$")
     if input.to_i <= 0
       puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
       balance
-    elsif input == "menu"
+    elsif input.downcase == "menu"
       menu
-    elsif input == "exit"
+    elsif input.downcase == "exit"
       goodbye
       exit
     else
-      input
+      input.to_i
     end
   end
 
