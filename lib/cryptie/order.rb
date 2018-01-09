@@ -6,7 +6,6 @@ class Cryptie::Order
     @coin_name = coin.name
     @coin_price = coin.price.delete("$").to_f
     @quantity = (spend / coin_price)
-    binding.pry
   end
   # What if I order the same coin? Account for multiple orders of the same coin and how to total them.
 

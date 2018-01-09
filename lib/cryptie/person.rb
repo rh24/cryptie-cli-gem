@@ -50,13 +50,13 @@ class Cryptie::Person
   def valid_spend # self.spending_balance works, but not without 'self'. Do I always need self there?
     puts "Here is your account balance: $#{spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
     spend = gets.strip
-    spend = spend.delete("$").to_i if spend.include?("$") # sanitize by accounting for possible "$"
-    # binding.pry
-    if spend > 0 && spend <= spending_balance
+    spend = spend.delete("$").to_i if spend.include?("$")
+    if spend.to_i > 0 && spend.to_i <= spending_balance
       self.spending_balance -= spend
       spend
     elsif spend == "max"
       spend == self.spending_balance
+      binding.pry
     else
       puts "Invalid amount. Try again."
       valid_spend

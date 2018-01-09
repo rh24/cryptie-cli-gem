@@ -21,9 +21,11 @@ class Cryptie::CLI
         Cryptie::Coin.list
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "order"
-        person = Cryptie::Person.new(person_name, balance)
-        person.order
-        person.display_account
+        order
+        puts "-----Enter \"order\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.-----"
+        puts "------- NOTE: If you already know your token symbol, simply type it into your order. --------"
+        puts "------- The CLI only displays the Top 20 coins, but all token info has been scraped. --------"
+        puts "------------------------- Check to see if we have your coin! --------------------------------"
       elsif input == "exit"
         goodbye
         exit
@@ -32,6 +34,12 @@ class Cryptie::CLI
         menu
       end
     end
+  end
+
+  def order
+    person = Cryptie::Person.new(person_name, balance)
+    person.order
+    person.display_account
   end
 
   def print_info(coin)
@@ -51,7 +59,7 @@ class Cryptie::CLI
     input = gets.strip
     if input.to_i.is_a?(Integer) && input.to_i != 0
       puts "Need valid name. Try again, \"exit\" or \"menu\" for more options."
-      name
+      person_name
     elsif input == "menu"
       menu
     elsif input == "exit"
@@ -68,7 +76,7 @@ class Cryptie::CLI
     input = input.delete("$").to_i if input.include?("$")
     if input.to_i <= 0
       puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
-      spending_balance
+      balance
     elsif input == "menu"
       menu
     elsif input == "exit"
