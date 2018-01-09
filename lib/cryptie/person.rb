@@ -52,7 +52,7 @@ class Cryptie::Person
     input = gets.strip
     input = input.delete("$") if input.include?("$")
     if input.to_i > 0 && input.to_i <= self.spending_balance
-      # self.spending_balance -= input.to_i
+      self.spending_balance -= input.to_i
       input.to_i
     elsif input.downcase == "max"
       self.spending_balance
