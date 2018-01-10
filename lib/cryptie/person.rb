@@ -24,27 +24,6 @@ class Cryptie::Person
     self.orders << order
   end
 
-  def buy_more
-    if self.spending_balance == 0
-      puts "You're out of money! Would you like to continue purchasing? (y/n)"
-      answer = gets.strip.downcase
-      if answer == "yes" || ansewr == "y"
-        balance
-      elsif answer == "no" || answer == "n"
-        greeting
-        menu
-      else
-        invalid
-      end
-    else
-      order
-      display_account
-      puts "-- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit. --"
-      puts "----------- Once you enter \"list\" or \"exit\" your information will not be saved -------------"
-      menu
-    end
-  end
-
   def display_account # Should go in Cryptie::Person class?
     puts "\n#{self.name.capitalize}'s updated account information:"
     puts "\n"

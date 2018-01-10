@@ -34,7 +34,6 @@ class Cryptie::CLI
       elsif input == "symbol"
         puts "---------------- SEARCH BY SYMBOL: ---------------- \nWhen finished, enter \"menu\" for more options."
         symbol
-        return_menu # I separate greeting from menu so that I can call menu here without re-printing greeting.
       elsif input == "list"
         # If I switch to list, person is not saved
         Cryptie::Coin.list
@@ -65,7 +64,6 @@ class Cryptie::CLI
     coin = Cryptie::Coin.find_by_symbol(input)
     if coin == nil
       puts "Sorry, we couldn't find your token. Enter valid input or \"menu\" for more options"
-      symbol
       input.downcase == "menu" ? return_menu : symbol
     else
       print_info(coin)
@@ -73,7 +71,10 @@ class Cryptie::CLI
   end
 
   def buy_more
-    if person.spending_balance <= 0
+    if person == nil
+      puts "Create an account first. Enter \"order\" to get started."
+      menu
+    elsif person.spending_balance <= 0
       puts "You're out of money! Would you like to continue purchasing? (y/n)"
       answer = gets.strip.downcase
       if answer == "yes" || answer == "y"
