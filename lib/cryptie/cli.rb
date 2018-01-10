@@ -7,7 +7,7 @@ class Cryptie::CLI
   def initialize
     self.class.all << self
   end
-  
+
   def call
     Cryptie::Scraper.scrape_all_coins
     Cryptie::Coin.list
@@ -74,7 +74,7 @@ class Cryptie::CLI
     if input.downcase == "menu"
       return_menu
     elsif coin == nil
-      puts "Sorry, we couldn't find your token. Enter valid input or \"menu\" for more options"
+      puts "Sorry, we couldn't find your token. Enter valid symbol or \"menu\" for more options"
       symbol
     else
       print_info(coin)
