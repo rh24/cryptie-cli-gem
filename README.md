@@ -1,15 +1,13 @@
-# Lorem
+# Cryptie
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/lorem`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem scrapes cryptocurrency information from CoinMarketCap.com and provides a CLI for users to look up figures for each coin as well as simulate orders. Note, that costs of each coin will differ on actual trading exchanges, so calculations in this gem will only reflect a rough estimations of real-world orders.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'lorem'
+gem 'cryptie-cli-gem'
 ```
 
 And then execute:
@@ -18,7 +16,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install lorem
+    $ gem install cryptie-cli-gem
 
 ## Usage
 
