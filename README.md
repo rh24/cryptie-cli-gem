@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Run: `cryptie-cli-gem` after installation.
 
 ## Development
 

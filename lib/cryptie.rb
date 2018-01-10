@@ -1,6 +1,8 @@
+require 'bundler'
+Bundler.require
 
 module Cryptie
-  # Your code goes here...
+
 end
 
 require_relative '../config/environment'
