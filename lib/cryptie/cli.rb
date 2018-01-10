@@ -2,12 +2,21 @@ require 'pry'
 
 class Cryptie::CLI
   attr_reader :person
+  @@all = [] # Use to refer to Cryptie::CLI instance in other classes.
 
+  def initialize
+    self.class.all << self
+  end
+  
   def call
     Cryptie::Scraper.scrape_all_coins
     Cryptie::Coin.list
     greeting
     menu
+  end
+
+  def self.all
+    @@all
   end
 
   def greeting

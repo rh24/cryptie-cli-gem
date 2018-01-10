@@ -16,7 +16,6 @@ class Cryptie::Person
       # How would I account for multiple orders of the same coin?
     end
     return nil
-    binding.pry
   end
 
   def order
@@ -36,12 +35,13 @@ class Cryptie::Person
   def valid_symbol # Should go in Cryptie::Coin class?
     puts "Which coin would you like to purchase? Enter symbol:"
     input = gets.strip.upcase
-    if Cryptie::Coin.find_by_symbol(input) == nil
+    if input.downcase == "exit"
+      Cryptie::CLI.all.first.return_menu
+    elsif Cryptie::Coin.find_by_symbol(input) == nil
       puts "Invalid symbol. We could not find this coin. Please, try again or exit."
-      valid_symbol until input.downcase == "exit"
-      Cryptie:Coin.new.call if input.downcase == "exit"
+      valid_symbol
     else
-      Cryptie::Coin.all.detect {|c| c if c.symbol == input} # Returns coin instance
+      Cryptie::Coin.find_by_symbol(input) # Returns coin instance
     end
   end
 
