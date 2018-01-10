@@ -11,20 +11,21 @@ class Cryptie::Person
   end
 
   def coins # A person has many coins through orders
-    @coins = self.orders.each do |o| # Returns self.orders array in terminal. Fix this.
-      puts "#{o.coin_name} (#{o.coin_sym}):  #{o.quantity}"
+    @coins = self.orders.each do |o|
+      puts "#{o.coin.name} (#{o.coin.symbol}):  #{o.quantity}"
       # How would I account for multiple orders of the same coin?
     end
     return nil
+    binding.pry
   end
 
-  def order # Work this out
+  def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
     order.person = self
     self.orders << order
   end
 
-  def display_account # Should go in Cryptie::Person class?
+  def display_account
     puts "\n#{self.name.capitalize}'s updated account information:"
     puts "\n"
     puts "#{self.coins}"

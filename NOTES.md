@@ -12,3 +12,5 @@ TODO:
 
 - Figure out why coin.name puts a shortened version of "Basic Attention Token"
   #=> "Basic Attenti..."
+
+  - Get help on object architecture?
