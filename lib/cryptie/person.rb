@@ -20,12 +20,6 @@ class Cryptie::Person
 
   def order # Work this out
     order = Cryptie::Order.new(valid_symbol, valid_spend)
-    # if !valid_spend
-    #   puts "Want to add more money? Enter new amount."
-    #   Cryptie::CLI.balance
-    # else
-    #   order
-    # end
     order.person = self
     self.orders << order
   end
