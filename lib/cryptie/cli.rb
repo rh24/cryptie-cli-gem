@@ -33,7 +33,7 @@ class Cryptie::CLI
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
       elsif input == "symbol"
         puts "---------------- SEARCH BY SYMBOL: ---------------- \nWhen finished, enter \"menu\" for more options."
-        symbol
+        symbol until input == "menu"
       elsif input == "list"
         # If I switch to list, person is not saved
         Cryptie::Coin.list
@@ -62,9 +62,11 @@ class Cryptie::CLI
     puts "Input your token's symbol:"
     input = gets.strip.upcase
     coin = Cryptie::Coin.find_by_symbol(input)
-    if coin == nil
+    if input.downcase == "menu"
+      return_menu
+    elsif coin == nil
       puts "Sorry, we couldn't find your token. Enter valid input or \"menu\" for more options"
-      input.downcase == "menu" ? return_menu : symbol
+      symbol
     else
       print_info(coin)
     end

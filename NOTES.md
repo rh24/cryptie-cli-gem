@@ -1,7 +1,6 @@
 TODO:
 
-- Fix symbol method to recursion until "menu"
-- If "buy more" person == nil, puts "You have not made an account. Enter "order" to get started."
+- If at ANY point in the program, user inputs "menu" => return_menu
 - Fix methods to update person account balance after each order.
 - Display total quantity of each coin instead of stacking up order quantities.
     Current           
