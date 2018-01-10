@@ -1,6 +1,6 @@
 # Cryptie
 
-This Ruby Gem scrapes cryptocurrency information from CoinMarketCap.com and provides a CLI for users to look up figures for each coin as well as simulate orders. Note, that costs of each coin will differ on actual trading exchanges, so calculations in this gem will only reflect a rough estimations of real-world orders.
+This Ruby Gem scrapes cryptocurrency information from CoinMarketCap.com and provides a CLI for users to look up figures for each coin as well as simulate orders. Note, that costs of each coin will differ on actual trading exchanges, so calculations in this gem will only reflect rough estimations of real-world orders.
 
 ## Installation
 
