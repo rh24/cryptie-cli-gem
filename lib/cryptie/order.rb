@@ -10,11 +10,4 @@ class Cryptie::Order
   end
   # What if I order the same coin? Account for multiple orders of the same coin and how to total them.
 
-  def maximum(coin, dollar_amount)
-
-  end
-
-  def purchase
-
-  end
 end

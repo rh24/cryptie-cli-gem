@@ -22,9 +22,13 @@ class Cryptie::Coin
     all.detect {|coin| coin.rank == input}
   end
 
+  def self.find_by_symbol(input)
+    all.detect {|coin| coin.symbol == input}
+  end
+
   def self.list # All coins have been scraped. Change index to display more coins.
     @list =
-    puts "Today's Top 10 Cryptocurrencies by Market Cap:"
+    puts "\nToday's Top 10 Cryptocurrencies by Market Cap:"
     puts "\n"
     Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
       puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"

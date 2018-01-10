@@ -3,12 +3,11 @@ class Cryptie::Person
   attr_reader :name, :coins
   # @@all = [] Only if I were keeping track of more than one person's account
 
-  def initialize(name, spending_balance)
-    @name = name
-    @spending_balance = spending_balance
+  def initialize(person_name, balance)
+    @name = person_name
+    @spending_balance = balance
     @orders = []
     # @coins = []
-    # binding.pry
   end
 
   def coins # A person has many coins through orders
@@ -31,6 +30,27 @@ class Cryptie::Person
     self.orders << order
   end
 
+  def buy_more
+    if self.spending_balance == 0
+      puts "You're out of money! Would you like to continue purchasing? (y/n)"
+      answer = gets.strip.downcase
+      if answer == "yes" || ansewr == "y"
+        balance
+      elsif answer == "no" || answer == "n"
+        greeting
+        menu
+      else
+        invalid
+      end
+    else
+      order
+      display_account
+      puts "-- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit. --"
+      puts "----------- Once you enter \"list\" or \"exit\" your information will not be saved -------------"
+      menu
+    end
+  end
+
   def display_account # Should go in Cryptie::Person class?
     puts "\n#{self.name.capitalize}'s updated account information:"
     puts "\n"
@@ -42,9 +62,10 @@ class Cryptie::Person
   def valid_symbol # Should go in Cryptie::Coin class?
     puts "Which coin would you like to purchase? Enter symbol:"
     input = gets.strip.upcase
-    if Cryptie::Coin.all.detect {|c| c if c.symbol == input} == nil
-      puts "Invalid symbol. We could not find this coin. Please, try again."
-      valid_symbol
+    if Cryptie::Coin.find_by_symbol(input) == nil
+      puts "Invalid symbol. We could not find this coin. Please, try again or exit."
+      valid_symbol until input.downcase == "exit"
+      Cryptie:Coin.new.call if input.downcase == "exit"
     else
       Cryptie::Coin.all.detect {|c| c if c.symbol == input} # Returns coin instance
     end
@@ -60,8 +81,9 @@ class Cryptie::Person
     elsif input.downcase == "max"
       self.spending_balance
     else
-      puts "Invalid amount. Try again."
-      valid_spend
+      puts "Invalid amount. Try again or \"exit\"."
+      valid_spend until input.downcase == "exit"
+      Cryptie:Coin.new.call if input.downcase == "exit"
     end
   end
 
