@@ -59,7 +59,7 @@ class Cryptie::CLI
         buy_more
       elsif input == "exit"
         goodbye
-      elsif input == "menu" # If menu is explicitly called again, then re-print greeting.
+      elsif input == "menu" # If menu is explicitly called again, then print a shortened list of options
         return_menu
       else
         puts "Not sure what you want. Try again, or enter \"exit\" to leave:"
@@ -89,13 +89,11 @@ class Cryptie::CLI
       puts "You're out of money! Would you like to continue purchasing? (y/n)"
       answer = gets.strip.downcase
       if answer == "yes" || answer == "y"
-        balance
         person.spending_balance = balance
       elsif answer == "no" || answer == "n"
-        greeting
-        menu
+        return_menu
       else
-        invalid
+        puts "Invalid input. Please, try again."
         buy_more
       end
     else
@@ -151,10 +149,10 @@ class Cryptie::CLI
     end
   end
 
-  def invalid
-    puts "Invalid input. Please, try again."
-    # return_menu
-  end
+  # def invalid
+  #   puts "Invalid input. Please, try again."
+  #   # return_menu
+  # end
 
   def goodbye
     puts "See you later! Check back again soon. Crypto moves quickly."

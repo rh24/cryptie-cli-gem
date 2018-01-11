@@ -7,7 +7,6 @@ class Cryptie::Person
     @name = person_name
     @spending_balance = balance
     @orders = []
-    # @coins = []
   end
 
   def coins # A person has many coins through orders
@@ -21,6 +20,7 @@ class Cryptie::Person
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
     order.person = self
+    self.spending_balance -= valid_spend
     self.orders << order
   end
 
@@ -32,7 +32,7 @@ class Cryptie::Person
         # coin, quantity, remaining balance
   end
 
-  def valid_symbol # Should go in Cryptie::Coin class?
+  def valid_symbol # Should go in Cryptie::Coin class? No, because a person is responsible for inputting a valid symbol
     puts "Which coin would you like to purchase? Enter symbol:"
     input = gets.strip.upcase
     if input.downcase == "exit"
@@ -56,8 +56,8 @@ class Cryptie::Person
       self.spending_balance
     else
       puts "Invalid amount. Try again or \"exit\"."
-      valid_spend until input.downcase == "exit"
-      Cryptie:Coin.new.call if input.downcase == "exit"
+      valid_spend
+      # Cryptie::CLI.return_menu if input.downcase == "exit"
     end
   end
 

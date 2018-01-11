@@ -6,6 +6,7 @@ TODO:
         Cryptie::CLI.all.first.return_menu
 
 - Fix methods to update person account balance after each order.
+  - buy_more
 - Display total quantity of each coin instead of stacking up order quantities.
     Current
     display:
