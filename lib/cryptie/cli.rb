@@ -51,6 +51,7 @@ class Cryptie::CLI
         @person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
         person.order
         person.display_account
+        person.update_balance
         puts "--- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.---"
         puts "------- NOTE: If you already know your token symbol, simply type it into your order. --------"
         puts "------- The CLI only displays the Top 20 coins, but all token info has been scraped. --------"
@@ -81,7 +82,7 @@ class Cryptie::CLI
     end
   end
 
-  def buy_more
+  def buy_more # this method puts valid_spend and balance twice
     if person == nil
       puts "Create an account first. Enter \"order\" to get started."
       menu
@@ -89,7 +90,12 @@ class Cryptie::CLI
       puts "You're out of money! Would you like to continue purchasing? (y/n)"
       answer = gets.strip.downcase
       if answer == "yes" || answer == "y"
+        # balance
         person.spending_balance = balance
+        person.order
+        person.display_account
+        puts "-- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit. --"
+        puts "----------- Once you enter \"list\" or \"exit\" your information will not be saved -------------"
       elsif answer == "no" || answer == "n"
         return_menu
       else
@@ -133,19 +139,16 @@ class Cryptie::CLI
   end
 
   def balance
-    puts "Please, enter your spending balance:"
+    puts "Please, enter your spending balance:" # This also gets puts'ed twice and only registers the second input
     input = gets.strip
     input = input.delete("$") if input.include?("$")
-    if input == "exit"
-      goodbye
-      exit
-    elsif input.downcase == "menu"
-      menu
+    if input.downcase == "menu"
+      return_menu
     elsif input.to_i <= 0
       puts "You have no money to spend. Please, enter valid balance, \"exit\", or type \"menu\" for more options."
       balance
     else
-      input.to_i
+      input.to_i #person.spending_balance = input.to_i
     end
   end
 

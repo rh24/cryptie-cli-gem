@@ -1,6 +1,6 @@
 class Cryptie::Person
   attr_accessor :orders, :spending_balance, :account
-  attr_reader :name, :coins
+  attr_reader :name, :coins, :valid_spend
   # @@all = [] Only if I were keeping track of more than one person's account
 
   def initialize(person_name, balance)
@@ -20,7 +20,7 @@ class Cryptie::Person
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
     order.person = self
-    self.spending_balance -= valid_spend
+    self.spending_balance -= @valid_spend
     self.orders << order
   end
 
@@ -46,18 +46,18 @@ class Cryptie::Person
   end
 
   def valid_spend # Why do I need self in front of spending_balance? It doesn't work otherwise.
-    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
+    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"." # Weirdly, this is getting puts'ed twice and only the second input is used for calculating self.spending_balance
     input = gets.strip
     input = input.delete("$") if input.include?("$")
-    if input.to_i > 0 && input.to_i <= self.spending_balance
-      # self.spending_balance -= input.to_i
-      input.to_i
+    if input.downcase == "exit"
+      Cryptie::CLI.all.first.return_menu
+    elsif input.to_i > 0 && input.to_i <= self.spending_balance
+      @valid_spend = input.to_i
     elsif input.downcase == "max"
-      self.spending_balance
+      @valid_spend = self.spending_balance
     else
       puts "Invalid amount. Try again or \"exit\"."
       valid_spend
-      # Cryptie::CLI.return_menu if input.downcase == "exit"
     end
   end
 
