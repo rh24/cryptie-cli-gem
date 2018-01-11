@@ -46,7 +46,7 @@ class Cryptie::Person
   end
 
   def valid_spend # Why do I need self in front of spending_balance? It doesn't work otherwise.
-    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"." # Weirdly, this is getting puts'ed twice and only the second input is used for calculating self.spending_balance
+    puts "Here is your account balance: $#{self.spending_balance}. How much would you like to spend on this purchase? Enter amount or \"max\"."
     input = gets.strip
     input = input.delete("$") if input.include?("$")
     if input.downcase == "exit"
