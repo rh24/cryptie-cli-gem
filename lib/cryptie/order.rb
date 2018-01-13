@@ -1,6 +1,6 @@
 class Cryptie::Order
   attr_accessor :person, :quantity
-  attr_reader :coin #:quantity
+  attr_reader :coin
   @@all = []
 
   def initialize(coin, spend)
@@ -15,8 +15,8 @@ class Cryptie::Order
 
   def add_to_existing_coin
     self.class.all.each do |o|
-      if o.coin.name == @coin.name
-        o.quantity += @quantity
+      if o.coin.name == coin.name
+        o.quantity += quantity
       else
         next
       end

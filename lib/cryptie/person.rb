@@ -1,10 +1,11 @@
 class Cryptie::Person
-  attr_accessor :orders, :spending_balance, :account
-  attr_reader :name, :coins, :valid_spend
+  attr_accessor :spending_balance, :account
+  attr_reader :name, :coins, :valid_spend, :orders
 
   def initialize(person_name, balance)
     @name = person_name
     @spending_balance = balance
+    @orders = [] # A person has many orders
   end
 
   def coins # A person has many coins through orders
@@ -17,6 +18,7 @@ class Cryptie::Person
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)
     order.person = self
+    self.orders << order
     self.spending_balance -= @valid_spend
   end
 

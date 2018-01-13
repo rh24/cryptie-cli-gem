@@ -21,7 +21,7 @@ class Cryptie::Scraper
         }
 
       coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank] == "#"
-      @@all << coin_hash unless coin_hash[:rank] == "#"
+      all << coin_hash unless coin_hash[:rank] == "#"
     end
   end
 
