@@ -1,18 +1,37 @@
 class Cryptie::Person
   attr_accessor :spending_balance, :account
-  attr_reader :name, :coins, :valid_spend, :orders
+  attr_reader :name, :coins, :valid_spend, :valid_symbol, :orders
 
   def initialize(person_name, balance)
     @name = person_name
     @spending_balance = balance
     @orders = [] # A person has many orders
+    @coins = {} # A person has many coins through orders
   end
 
-  def coins # A person has many coins through orders
-    @coins = Cryptie::Order.all.each do |o|
-      puts "#{o.coin.name} (#{o.coin.symbol}):  #{o.quantity}"
+  # def display_coins # A person has many coins through orders
+  #   Cryptie::Order.all.each do |o|
+  #     puts "#{o.coin.name} (#{o.coin.symbol}):  #{o.quantity}"
+  #   end
+  #   return nil
+  # end
+
+# I separated my previous (above) display_coins method into two pieces:
+# 'display_coins' and 'coins'
+# Which is the better way to show the has many through relationship?
+
+  def display_coins
+    self.coins.each do |k, v|
+      puts "#{k.name} (#{k.symbol}): #{v}"
     end
     return nil
+  end
+
+  def coins
+    Cryptie::Order.all.each do |o|
+      @coins[o.coin] = o.quantity
+    end
+    @coins
   end
 
   def order
@@ -25,8 +44,9 @@ class Cryptie::Person
   def display_account
     puts "\n#{self.name.capitalize}'s updated account information:"
     puts "\n"
-    puts "#{self.coins}"
+    puts "#{self.display_coins}"
     puts "Your account balance is #{spending_balance}."
+    binding.pry
   end
 
   def valid_symbol # Should go in Cryptie::Coin class? No, because a person is responsible for inputting a valid symbol
