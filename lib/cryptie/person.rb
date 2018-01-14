@@ -21,8 +21,8 @@ class Cryptie::Person
 # Which is the better way to show the has many through relationship?
 
   def display_coins
-    self.coins.each do |k, v|
-      puts "#{k.name} (#{k.symbol}): #{v}"
+    self.coins.each do |coin, quantity|
+      puts "#{coin.name} (#{coin.symbol}): #{quantity}"
     end
     return nil
   end

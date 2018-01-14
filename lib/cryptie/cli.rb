@@ -61,7 +61,7 @@ class Cryptie::CLI
   end
 
   def order
-    @person = Cryptie::Person.new(person_name, balance) # I don't want to create a new person every time.
+    @person = Cryptie::Person.new(person_name, balance)
     person.order
     person.display_account
     puts "--- Enter \"buy more\" to make another purchase, \"menu\" for more options, or \"exit\" to quit.---"
