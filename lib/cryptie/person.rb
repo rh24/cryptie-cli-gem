@@ -46,7 +46,6 @@ class Cryptie::Person
     puts "\n"
     puts "#{self.display_coins}"
     puts "Your account balance is #{spending_balance}."
-    binding.pry
   end
 
   def valid_symbol # Should go in Cryptie::Coin class? No, because a person is responsible for inputting a valid symbol
