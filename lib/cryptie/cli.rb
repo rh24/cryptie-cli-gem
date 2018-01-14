@@ -1,5 +1,3 @@
-require 'pry'
-
 class Cryptie::CLI
   attr_reader :person
   @@all = [] # Use to refer to Cryptie::CLI instance in other classes.

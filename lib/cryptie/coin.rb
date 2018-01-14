@@ -1,5 +1,3 @@
-require 'pry'
-
 class Cryptie::Coin
   attr_accessor :order, :rank, :symbol, :name, :market_cap, :price, :volume, :hr_percent_change, :day_percent_change, :week_percent_change
   attr_reader :supply
