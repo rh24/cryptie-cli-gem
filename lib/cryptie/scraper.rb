@@ -1,7 +1,7 @@
 class Cryptie::Scraper
   @@all =[]
 
-  def self.scrape_all_coins
+  def scrape_all_coins
     doc = Nokogiri::HTML(open('https://coinmarketcap.com/all/views/all/'))
 
     doc.css('table').css('tr').each do |coin|
@@ -19,7 +19,7 @@ class Cryptie::Scraper
         }
 
       coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank] == "#"
-      all << coin_hash unless coin_hash[:rank] == "#"
+      self.class.all << coin_hash unless coin_hash[:rank] == "#" # Eliminates false coin instance
     end
   end
 
