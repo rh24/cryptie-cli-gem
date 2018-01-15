@@ -33,7 +33,7 @@ class Cryptie::CLI
   def menu
     input = nil
     while input != "exit"
-      input = gets.strip.downcase # Need to sanitize the input later
+      input = gets.strip.downcase
       if input.to_i != 0
         coin = Cryptie::Coin.find_by_rank(input)
         print_info(coin)
