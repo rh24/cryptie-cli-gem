@@ -1,5 +1,5 @@
 class Cryptie::Scraper
-  @@all =[]
+  @@all = []
 
   def self.scrape_all_coins
     doc = Nokogiri::HTML(open('https://coinmarketcap.com/all/views/all/'))
@@ -27,3 +27,6 @@ class Cryptie::Scraper
     @@all
   end
 end
+
+# Avi makes his scraper method in Common Anti-Patterns video an instance method instead of a class method.
+# What's the benefit of doing that? Is making my scraper method a class method considered an anti-pattern?
