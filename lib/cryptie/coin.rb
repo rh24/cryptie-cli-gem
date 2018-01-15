@@ -9,12 +9,8 @@ class Cryptie::Coin
   end
 
   def supply=(supply)
-    if supply.include?("*")
-      supply += " this coin is not mineable"
-      @supply = supply
-    else
-      @supply = supply
-    end
+    supply << " this coin is not mineable" if supply.include?("*")
+    @supply = supply
   end
 
   def self.find_by_rank(input)
