@@ -34,7 +34,7 @@ class Cryptie::CLI
     input = nil
     while input != "exit"
       input = gets.strip.downcase
-      if input.to_i != 0
+      if input.to_i <= Cryptie::Coin.all.size && input.to_i > 0
         coin = Cryptie::Coin.find_by_rank(input)
         print_info(coin)
         puts "\nWould you like to place an order? Enter \"order\" to get started or \"menu\" for more options."
