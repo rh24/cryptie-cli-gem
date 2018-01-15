@@ -5,9 +5,6 @@ TODO:
       if input.downcase == "exit"
         Cryptie::CLI.all.first.return_menu
 
-- Figure out why coin.name puts a shortened version of "Basic Attention Token"
-  #=> "Basic Attenti..."
-
 - Write README.md
 
   - Get help on object architecture?

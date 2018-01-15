@@ -9,30 +9,30 @@ class Cryptie::Person
     @coins = {} # A person has many coins through orders
   end
 
-  # def display_coins # A person has many coins through orders
-  #   Cryptie::Order.all.each do |o|
-  #     puts "#{o.coin.name} (#{o.coin.symbol}):  #{o.quantity}"
-  #   end
-  #   return nil
-  # end
-
-# I separated my previous (above) display_coins method into two pieces:
-# 'display_coins' and 'coins'
-# Which is the better way to show the has many through relationship?
-
-  def display_coins
-    self.coins.each do |coin, quantity|
-      puts "#{coin.name} (#{coin.symbol}): #{quantity}"
+  def display_coins # A person has many coins through orders
+    Cryptie::Order.all.each do |o|
+      puts "#{o.coin.name} (#{o.coin.symbol}):  #{o.quantity}"
     end
     return nil
   end
 
-  def coins
-    Cryptie::Order.all.each do |o|
-      @coins[o.coin] = o.quantity
-    end
-    @coins
-  end
+# (Below) I separated my previous (above) display_coins method into two methods:
+# 'display_coins' and 'coins'
+# Which is the better way to show the has many through relationship?
+
+  # def display_coins
+  #   self.coins.each do |coin, quantity|
+  #     puts "#{coin.name} (#{coin.symbol}): #{quantity}"
+  #   end
+  #   return nil
+  # end
+
+  # def coins
+  #   Cryptie::Order.all.each do |o|
+  #     @coins[o.coin] = o.quantity
+  #   end
+  #   @coins
+  # end
 
   def order
     order = Cryptie::Order.new(valid_symbol, valid_spend)

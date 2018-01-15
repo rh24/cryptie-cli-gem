@@ -1,5 +1,5 @@
 class Cryptie::CLI
-  attr_reader :person
+  attr_accessor :person
   @@all = [] # Use to refer to Cryptie::CLI instance in other classes.
 
   def initialize
@@ -48,6 +48,7 @@ class Cryptie::CLI
         order
       elsif input == "buy more"
         buy_more
+        binding.pry
       elsif input == "exit"
         goodbye
       elsif input == "menu" # If menu is explicitly called again, then print a shortened list of options
@@ -58,7 +59,8 @@ class Cryptie::CLI
     end
   end
 
-  def order
+  def order # this must create a 'new' account with no past orders
+    Cryptie::Order.all.clear
     @person = Cryptie::Person.new(person_name, balance)
     person.order
     person.display_account
