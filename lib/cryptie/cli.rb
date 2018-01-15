@@ -19,7 +19,7 @@ class Cryptie::CLI
 
   def greeting
     puts "\n--------------------- Which coin would you like to learn more about? ------------------------"
-    puts "-------------------- Enter rank \#, \"list\" to see top coins, or \"exit\" -----------------------"
+    puts "-------------------- Enter rank #, \"list\" to see top coins, or \"exit\" -----------------------"
     puts "------ NOTE: If you'd prefer to search all coins by your token's symbol, type \"symbol\" ------"
     puts "--------- If you'd like to go straight to ordering, enter \"order\" to get started. ------------"
   end
