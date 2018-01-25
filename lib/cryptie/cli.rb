@@ -8,6 +8,7 @@ class Cryptie::CLI
 
   def call
     Cryptie::Scraper.scrape_all_coins
+    Cryptie::Scraper.create_all_coin_instances
     Cryptie::Coin.list
     greeting
     menu

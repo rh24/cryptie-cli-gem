@@ -2,9 +2,10 @@ class Cryptie::Scraper
   @@all = []
 
   def self.scrape_all_coins
+
     doc = Nokogiri::HTML(open('https://coinmarketcap.com/all/views/all/'))
 
-    doc.css('table').css('tr').each do |coin|
+    coin_hash_array = doc.css('table').css('tr').collect do |coin|
         coin_hash = {
           :rank => coin.css('.text-center').text.strip,
           :name => coin.css('.currency-name').css('.currency-name-container').text.strip,
@@ -18,8 +19,21 @@ class Cryptie::Scraper
           :week_percent_change => coin.css('td').css('.percent-7d').text.strip
         }
 
-      coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank] == "#"
-      all << coin_hash unless coin_hash[:rank] == "#" # Eliminates false coin instance
+
+      # coin = Cryptie::Coin.new(coin_hash) unless coin_hash[:rank] == "#"
+      # all << coin_hash unless coin_hash[:rank] == "#" # Eliminates false coin instance
+    end
+
+      new_hash_array = coin_hash_array.collect do |hash|
+        hash if hash[:rank] != "#"
+      end
+
+      new_hash_array.compact
+  end
+
+  def self.create_all_coin_instances
+    scrape_all_coins.each do |coin_hash|
+      coin = Cryptie::Coin.new(coin_hash)
     end
   end
 

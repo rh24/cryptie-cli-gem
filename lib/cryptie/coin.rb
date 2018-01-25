@@ -24,7 +24,8 @@ class Cryptie::Coin
   def self.list # All coins have been scraped. Change index to display more coins.
     puts "\nToday's Top 20 Cryptocurrencies by Market Cap:"
     puts "\n"
-    Cryptie::Scraper.all.each.with_index(1) do |coin_hash, index|
+    # binding.pry
+    Cryptie::Scraper.scrape_all_coins.each.with_index(1) do |coin_hash, index|
       puts "#{index}. #{coin_hash[:name]}  #{coin_hash[:symbol]}   \n"
       break if index == 20
     end
